@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nanda Ayu Agustin | Profile</title>
+<meta name="description" content="Nanda, a first semester Informatics Engineering student learning how to make websites.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
+<style id="mobile-fix">
+/* Inlined so phones never depend on a cached style.css */
+/* =====================================================
+   FIX: mobile layout + hover + performance (anti-lag)
+   (placed last so it wins over the earlier duplicate rules)
+   ===================================================== */
+
+/* 1) Responsive grid: earlier rules were overridden by later .cards/.about */
+@media(max-width:960px){
+  .cards{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}
+  .about{grid-template-columns:1fr;gap:18px;padding:24px}
+}
+@media(max-width:520px){
+  .body{padding:20px 22px 24px}
+  .body h3{font-size:1.45rem}
+  .desc{font-size:1rem}
+  .thumb{font-size:3.4rem}
+  .judul{margin-bottom:24px}
+}
+
+/* 2) Touch screens: :hover sticks after a tap, so turn the lift/tilt effects off */
+@media(hover:none){
+  .pill:hover,.btn:hover,body.spidey .pill:hover,body.spidey .btn:hover{transform:none}
+  .card:hover,body.spidey .card:hover{border-color:var(--line);box-shadow:none}
+  .card.reveal.in:hover{transform:none}
+  .card:hover .thumb{animation:none}
+  .card:hover .thumb .emo{animation-duration:3s}
+  .card:hover::after{opacity:0}
+  .avatar:hover{transform:none}
+}
+
+/* 3) Cheaper animations everywhere: only transform/opacity, no repaint */
+@keyframes heroin{from{opacity:0;transform:translateY(36px) scale(.97)}to{opacity:1;transform:none}}
+.lightfx .blob{border-radius:50%;animation-name:morphlite;will-change:transform}
+@keyframes morphlite{
+  from{transform:translate(0,0) scale(1,1)}
+  50%{transform:translate(4vmax,3vmax) scale(1.15,.88)}
+  to{transform:translate(-3vmax,5vmax) scale(.95,1.1)}
+}
+.lightfx .gridfloor{background:none;animation:none;overflow:hidden}
+.lightfx .gridfloor::before{
+  content:"";position:absolute;left:0;right:0;top:-64px;bottom:0;
+  background-image:linear-gradient(rgba(106,47,216,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(106,47,216,.22) 1px,transparent 1px);
+  background-size:64px 64px;animation:gridmove2 2.6s linear infinite
+}
+@keyframes gridmove2{to{transform:translateY(64px)}}
+
+/* 4) Phones / touch devices: drop the heavy effects */
+@media(max-width:700px),(hover:none){
+  .card,.about,.pill,.btn,
+  body.spidey .card,body.spidey .about,body.spidey .pill,body.spidey .btn{
+    -webkit-backdrop-filter:none;backdrop-filter:none
+  }
+  body::after{animation:none}
+  .lb-shine{display:none}
+  .lb-img img{animation:none;mix-blend-mode:normal}
+  .lightfx .blob{filter:blur(26px)}
+  .lightfx .b3,.lightfx .gridfloor{display:none}
+  .lightfx>span:nth-child(n+16){display:none}
+  .cweb{animation:none}
+  .orbit .o3{display:none}
+  .who strong{animation:none}
+  .avatar::before{animation:none;filter:none;opacity:.35}
+  .embers span:nth-child(even){display:none}
+  .dangler{animation:none;filter:none}
+  .sp img{mix-blend-mode:normal}
+  body.spidey .stage::after{display:none}
+  body.spidey.enter .sp.one img{animation:swing 1.5s cubic-bezier(.2,.8,.2,1) both,float1 7s 1.5s ease-in-out infinite}
+  body.spidey.enter .sp.two img{animation:swing2 1.7s .15s cubic-bezier(.2,.8,.2,1) both,float2 8.5s 1.8s ease-in-out infinite}
+  /* theme switch: simple fade instead of an expanding clip-path circle */
+  .wipe{clip-path:none}
+  .wipe.go{animation:wipefade 1s ease-in-out forwards}
+}
+@keyframes wipefade{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+
+/* ---- small mobile polish ---- */
+@media(max-width:520px){
+  .pill{min-height:40px;display:inline-flex;align-items:center}   /* easier to tap */
+  .dangler{top:100px}                                             /* hanging spider starts below the header, not across the photo */
+}
+
+
+/* =====================================================
+   PERF v2 (measured): blobs without blur filter, lighter phone mode
+   ===================================================== */
+.lightfx .blob{filter:none;opacity:.85}
+.lightfx .b1{background:radial-gradient(circle,#c7adff 0%,rgba(199,173,255,0) 68%)}
+.lightfx .b2{background:radial-gradient(circle,#dcf79a 0%,rgba(220,247,154,0) 68%)}
+.lightfx .b3{background:radial-gradient(circle,#ffc9e8 0%,rgba(255,201,232,0) 68%)}
+
+@media(max-width:700px),(hover:none){
+  .lightfx .blob{filter:none}
+  .orbit{display:none}
+  .lightfx>span:nth-child(n+12){display:none}
+  .cweb{animation:none}
+  .embers span:nth-child(n+6){display:none}
+  .sp img{filter:none}
+  body::before{animation:none;inset:0}
+  /* web lines: draw once, no endless pulsing (SVG repaints the whole screen every frame) */
+  body.spidey.enter .webs path.draw{animation:drawweb 1.6s .2s ease-out forwards}
+}
+
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor-glow" id="glow" aria-hidden="true"></div>
+<div class="wipe" id="wipe" aria-hidden="true"></div>
+<div class="lightbg" aria-hidden="true"><i class="ring"></i><div class="lb-img"><img src="WhatsApp_Image_2026-10-16_at_23_59_12.jpeg" alt=""></div><div class="lb-shine"></div>
+</div>
+<div class="lightfx" id="lightfx" aria-hidden="true">
+  <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
+  <i class="gridfloor"></i>
+  <svg class="cweb" viewBox="0 0 300 300" aria-hidden="true"><path d="M300 0L300.0 300.0M300 0L222.4 289.8M300 0L150.0 259.8M300 0L87.9 212.1M300 0L40.2 150.0M300 0L10.2 77.6M300 0L0.0 0.0M300.0 60.0Q293.2 51.9 284.5 58.0Q280.0 48.4 270.0 52.0Q268.1 41.5 257.6 42.4Q258.5 31.9 248.0 30.0Q251.6 20.0 242.0 15.5Q248.1 6.8 240.0 0.0M300.0 110.0Q287.5 95.2 271.5 106.3Q263.3 88.7 245.0 95.3Q241.6 76.1 222.2 77.8Q223.9 58.4 204.7 55.0Q211.3 36.7 193.7 28.5Q204.8 12.5 190.0 0.0M300.0 160.0Q281.8 138.4 258.6 154.5Q246.6 129.0 220.0 138.6Q215.0 110.7 186.9 113.1Q189.3 85.0 161.4 80.0Q171.0 53.4 145.5 41.4Q161.6 18.2 140.0 0.0M300.0 210.0Q276.1 181.7 245.6 202.8Q229.9 169.3 195.0 181.9Q188.5 145.4 151.5 148.5Q154.6 111.5 118.1 105.0Q130.7 70.1 97.2 54.4Q118.3 23.9 90.0 0.0M300.0 260.0Q270.4 224.9 232.7 251.1Q213.2 209.6 170.0 225.2Q161.9 180.0 116.2 183.8Q120.0 138.1 74.8 130.0Q90.4 86.8 48.9 67.3Q75.1 29.6 40.0 0.0"/></svg>
+  <svg class="cweb bl" viewBox="0 0 300 300" aria-hidden="true"><path d="M300 0L300.0 300.0M300 0L222.4 289.8M300 0L150.0 259.8M300 0L87.9 212.1M300 0L40.2 150.0M300 0L10.2 77.6M300 0L0.0 0.0M300.0 60.0Q293.2 51.9 284.5 58.0Q280.0 48.4 270.0 52.0Q268.1 41.5 257.6 42.4Q258.5 31.9 248.0 30.0Q251.6 20.0 242.0 15.5Q248.1 6.8 240.0 0.0M300.0 110.0Q287.5 95.2 271.5 106.3Q263.3 88.7 245.0 95.3Q241.6 76.1 222.2 77.8Q223.9 58.4 204.7 55.0Q211.3 36.7 193.7 28.5Q204.8 12.5 190.0 0.0M300.0 160.0Q281.8 138.4 258.6 154.5Q246.6 129.0 220.0 138.6Q215.0 110.7 186.9 113.1Q189.3 85.0 161.4 80.0Q171.0 53.4 145.5 41.4Q161.6 18.2 140.0 0.0M300.0 210.0Q276.1 181.7 245.6 202.8Q229.9 169.3 195.0 181.9Q188.5 145.4 151.5 148.5Q154.6 111.5 118.1 105.0Q130.7 70.1 97.2 54.4Q118.3 23.9 90.0 0.0M300.0 260.0Q270.4 224.9 232.7 251.1Q213.2 209.6 170.0 225.2Q161.9 180.0 116.2 183.8Q120.0 138.1 74.8 130.0Q90.4 86.8 48.9 67.3Q75.1 29.6 40.0 0.0"/></svg>
+</div>
+<div class="stage" aria-hidden="true">
+  <svg class="webs" id="webs" preserveAspectRatio="none" viewBox="0 0 100 100">
+    <path class="draw" d="M0 0 Q30 25 55 60 T100 100" vector-effect="non-scaling-stroke"/>
+    <path class="draw" d="M0 0 Q10 40 30 100" vector-effect="non-scaling-stroke"/>
+    <path class="draw" d="M0 0 Q50 10 100 30" vector-effect="non-scaling-stroke"/>
+    <path class="draw" d="M100 0 Q70 30 45 55 T0 100" vector-effect="non-scaling-stroke"/>
+    <path class="draw" d="M100 0 Q90 40 70 100" vector-effect="non-scaling-stroke"/>
+    <path class="draw" d="M100 0 Q50 10 0 35" vector-effect="non-scaling-stroke"/>
+  </svg>
+  <div class="dangler"><i class="thread"></i>
+    <svg class="spd" viewBox="0 0 40 40" width="34" height="34"><g class="legs" stroke="#e62429" stroke-width="2" stroke-linecap="round" fill="none"><path d="M20 20 L7 9 L2 15 M20 20 L4 19 L1 27 M20 20 L6 31 L5 38 M20 20 L13 34 L14 39 M20 20 L33 9 L38 15 M20 20 L36 19 L39 27 M20 20 L34 31 L35 38 M20 20 L27 34 L26 39"/></g><ellipse cx="20" cy="24" rx="7" ry="9" fill="#e62429"/><circle cx="20" cy="13" r="5" fill="#e62429"/><circle cx="18" cy="12" r="1.2" fill="#fff"/><circle cx="22" cy="12" r="1.2" fill="#fff"/></svg>
+  </div>
+  <div class="sp two" data-depth="0.5"><img src="spider_1.png" alt=""></div>
+  <div class="sp one" data-depth="1"><img src="spider_2.png" alt=""></div>
+</div>
+<div class="page">
+  <header class="bar">
+    <a class="who" href="#top">
+      <span class="avatar"><i class="ring"></i><span class="pic"><img src="pp.png" alt="Nanda Ayu Agustin" id="foto"><b id="inisial">ND</b></span></span>
+      <span><strong>Nanda Ayu Agustin</strong><small>Informatics Engineering · Semester 1</small></span>
+    </a>
+    <a class="pill" href="#hobi">Hobbies <span aria-hidden="true">↓</span></a>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="orbit" aria-hidden="true"><i class="o o1"><b></b></i><i class="o o2"><b></b></i><i class="o o3"><b></b></i></div>
+    <h1>Hi, I'm <span class="hl" data-text="Nanda">Nanda</span>.</h1>
+    <p class="deskripsi" id="deskripsi">Halooo! i'm Nanda, student of Informatics Engineering first semester who is interested in the world of technology. 
+      I like to find information about informatics and started trying to create a website to add experience and learn new things.</p>
+    <div class="actions">
+      <button class="btn primary" id="tombolTeks" type="button">Change text</button>
+      <button class="btn" id="tombolTema" type="button" aria-pressed="false">Switch theme</button>
+    </div>
+  </section>
+
+  <section class="about reveal">
+    <div><p class="eyebrow">Study</p><h3>Informatics Engineering</h3></div>
+    <div><p class="eyebrow">Currently</p><h3>Learning to build websites</h3></div>
+    <div><p class="eyebrow">Interested in</p><h3>Anything tech</h3></div>
+  </section>
+
+  <main id="hobi">
+    <p class="eyebrow center">What I enjoy</p>
+    <h2 class="judul">Hobbies &amp; Skills</h2>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="thumb"><span class="emo">🎮</span></div>
+        <div class="body">
+          <p class="eyebrow">Hobby</p>
+          <h3>Game</h3>
+          <p class="desc">I like playing games to fill my spare time and enjoy the excitement of each game.</p>
+          <div class="foot"><span class="tag">Indoor</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb"><span class="emo">🎬</span></div>
+        <div class="body">
+          <p class="eyebrow">Hobby</p>
+          <h3>Movies</h3>
+          <p class="desc">I like watching movies, especially horror ones, because they’re exciting and suspenseful.</p>
+          <div class="foot"><span class="tag">Indoor</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="thumb"><span class="emo">🥊</span></div>
+        <div class="body">
+          <p class="eyebrow">Hobby</p>
+          <h3>Sport</h3>
+          <p class="desc">I enjoy sports, especially Muay Thai, because it tests my abilities and personal limits.</p>
+          <div class="foot"><span class="tag">Indoor</span></div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="foot-bar"><p>&copy; 2026 Nanda Ayu Agustin</p></footer>
+</div>
+<script src="script.js?v=6"></script>
+</body>
+</html>
